@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: python-flaskapp
-          image: turkswerks/python-flaskapp:smoke-test
+          image: turkswerks/python-flaskapp:6-98190e6
           imagePullPolicy: IfNotPresent
 
           ports:
