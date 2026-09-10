@@ -1,1 +1,62 @@
-testing testing testingtesting
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-flaskapp
+  namespace: default
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: python-flaskapp
+
+  template:
+    metadata:
+      labels:
+        app: python-flaskapp
+
+    spec:
+      containers:
+        - name: python-flaskapp
+          image: turkswerks/python-flaskapp:smoke-test
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - containerPort: 5000
+
+          env:
+            - name: APP_VERSION
+              value: "smoke-test"
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-flaskapp
+  namespace: default
+
+spec:
+  selector:
+    app: python-flaskapp
+
+  ports:
+    - port: 80
+      targetPort: 5000
+      nodePort: 30081
+
+  type: NodePort
