@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: python-flaskapp
-          image: turkswerks/python-flaskapp-group:13-7218e0a
+          image: turkswerks/python-flaskapp-group:14-7d421ca
           imagePullPolicy: IfNotPresent
 
           ports:
