@@ -16,7 +16,7 @@ spec:
       labels:
         app: python-flaskapp
 
-    spec:
+    spec
       containers:
         - name: python-flaskapp
           image: turkswerks/python-flaskapp-group:16-4801a4b
